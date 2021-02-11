@@ -1,0 +1,95 @@
+<!--Charts: Overview of line chart UI components-->
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+
+
+<div class="row">
+
+    <!-- Sidebar -->
+     <!-- Left Rail -->
+     {% include "menu.html" %}
+
+    <div class="col-12 col-lg-9 col-xl-10">
+        <div class="section">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="panel panel--loose panel--raised base-margin-bottom">
+                        <div class="section">
+                            <div class="row">
+                                <div class="col-md-2 base-margin-bottom">
+                                    <div class="form-group dropdown">
+                                        <div class="form-group__text select">
+                                            <label for="select-org">ORGANISATION</label>
+                                            <select id="select-org" onchange="get_networks(this.value)">
+                                                <option value="null">Select an Organisation</option>
+                                                {% for org in orgs %}
+                                                    <option value='{{org.id}}'>{{ org.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom">
+                                    <div class="form-group dropdown">
+                                        <div class="form-group__text select">
+                                          <label for="select-net">NETWORKS</label>
+                                          <select id="select-net">
+                                              <option value="null">Select a Network</option>
+                                          </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom">
+                                    <div class="form-group">
+                                        <div class="form-group__text">
+                                            <label for="start-date">START DATE</label>
+                                            <input id="start-date" type="date" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom">
+                                    <div class="form-group">
+                                        <div class="form-group__text">
+                                            <label for="end-date">END DATE</label>
+                                            <input id="end-date" type="date" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="col-lg-2 col-md-2 col-2 base-margin-bottom">
+                                    <div class="subheader">Excludes Auth Failure</div>
+                                    <label class="switch">
+                                        <input type="checkbox" onchange="" checked>
+                                        <span class="switch__input"></span>
+                                    </label>
+                                </div>-->
+                                <div class="col-lg-2 col-md-2 col-2 base-margin-bottom">
+                                    <input id="refresh-btn" class="btn btn-primary" type="button" value="Refresh" onclick="get_wireless_health()">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-2 base-margin-bottom" id="loader">
+                                    <div class="loader loader--small" aria-label="Loading, please wait...">
+                                        <div class="wrapper">
+                                            <div class="wheel"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-md-12 base-margin-bottom">
+                                <span>*The maximum lookback period is 180 days from today</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 base-margin-bottom">
+                                    <canvas id="myChart" width="400" height="120"></canvas>
+                                    <script src="{{ url_for('static', filename='JS/frontend.js') }}"></script>
+                                </div>
+                            </div>
+                            <div class="row" id="reasons"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
