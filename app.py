@@ -109,6 +109,16 @@ def get_wireless_health(net_id, t0, t1):
                 failedClients.append((failedConn['clientMac'], failedConn['failureStep'], failedConn['type']))
             connStats['failedClients'] = failedClients
 
+            if connStats == None:
+                connStats = {
+                    'assoc': 0,
+                    'auth': 0,
+                    'dhcp': 0,
+                    'dns': 0,
+                    'success': 0,
+                    'failedClients': []
+                }
+
             return json.dumps(connStats)
 
         else:
@@ -130,6 +140,16 @@ def get_wireless_health(net_id, t0, t1):
 
                 print(f"connStats {connStats}")
                 print(f"failedConns {failedConns}")
+
+                if connStats == None:
+                    connStats = {
+                        'assoc': 0,
+                        'auth': 0,
+                        'dhcp': 0,
+                        'dns': 0,
+                        'success': 0
+                    }
+
                 aggConnStats['assoc'] += connStats['assoc']
                 aggConnStats['auth'] += connStats['auth']
                 aggConnStats['dhcp'] += connStats['dhcp']
